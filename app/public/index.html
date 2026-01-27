@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ভোট কেন্দ্র অনুসন্ধান | চট্টগ্রাম-১০</title>
+    <!-- Modern Font: Tiro Bangla for elegant Bengali text -->
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Voter Slip Modal -->
+    <div id="slip-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-actions">
+                <button id="print-btn" class="btn btn-primary">🖨️ প্রিন্ট করুন</button>
+                <button id="download-btn" class="btn btn-secondary">⬇️ ডাউনলোড (PNG)</button>
+                <button id="close-modal" class="btn btn-danger">❌ বন্ধ করুন</button>
+            </div>
+
+            <!-- The Slip to Capture -->
+            <div id="voter-slip" class="voter-slip-container">
+                <!-- 1. Top Banner (Candidate Info) -->
+                <div class="slip-header">
+                    <img id="slip-banner-img" src="" alt="Banner" class="slip-full-banner">
+                </div>
+
+                <!-- 2. Manifesto Strip -->
+                <div class="slip-manifesto">
+                    <p id="slip-manifesto-text"></p>
+                </div>
+
+                <!-- 3. Center Header -->
+                <div class="slip-center-header">
+                    কেন্দ্র: <span id="slip-center"></span>
+                </div>
+
+                <!-- 4. Voter Details Body -->
+                <div class="slip-body">
+                    <div class="detail-row"><span>নাম:</span> <span id="slip-name"></span></div>
+                    <div class="detail-row"><span>সিরিয়াল নাম্বার:</span> <span id="slip-serial"></span></div>
+                    <div class="detail-row"><span>ভোটার নং:</span> <span id="slip-voter-no"></span></div>
+                    <div class="detail-row"><span>জন্ম তারিখ:</span> <span id="slip-dob"></span></div>
+                    <div class="detail-row"><span>পিতা/স্বামী:</span> <span id="slip-father"></span></div>
+                    <div class="detail-row"><span>মাতা:</span> <span id="slip-mother"></span></div>
+                    <div class="detail-row"><span>এলাকা:</span> <span id="slip-area"></span></div>
+                    <div class="detail-row"><span>ওয়ার্ড:</span> <span id="slip-ward"></span></div>
+                </div>
+
+                <div class="slip-footer">
+                    <!-- Footer text removed -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loader" class="loader-container">
+        <div class="spinner"></div>
+        <p>লোড হচ্ছে...</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="brand">
+                <span id="nav-title">ভোট কেন্দ্র তথ্য</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section (Dynamic) -->
+        <section class="hero" id="hero-section" style="display: none;">
+            <!-- Mobile Poster Banner -->
+            <div class="banner-container">
+                <img id="banner-img" src="" alt="Campaign Banner" class="banner-img">
+            </div>
+
+            <div class="container hero-content">
+                <div class="hero-images">
+                    <img id="candidate-img" src="" alt="Candidate" class="candidate-img">
+                    <img id="marka-img" src="" alt="Marka" class="marka-img">
+                </div>
+                <div class="hero-text text-center">
+                    <h1 id="hero-title">স্বাগতম</h1>
+                    <div id="manifesto" class="manifesto-box"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="container">
+                <div class="search-card">
+                    <div class="card-header">
+                        <h2>আপনার তথ্য প্রদান করুন</h2>
+                        <p>সঠিক তথ্য দিয়ে আপনার ভোট কেন্দ্র খুঁজে নিন</p>
+                    </div>
+
+                    <form id="search-form">
+                        <div class="form-grid">
+                            <!-- Name Input -->
+                            <div class="form-group">
+                                <label for="name">ভোটার নাম (অন্যচ্ছিক)</label>
+                                <input type="text" id="name" placeholder="নামের প্রথম অংশ (বাংলায়)" class="form-input">
+                            </div>
+
+                            <!-- DOB Input -->
+                            <div class="form-group">
+                                <label for="dob">জন্ম তারিখ (দিন/মাস/বছর)</label>
+                                <input type="text" id="dob" placeholder="২৯/১২/১৯৮৭" class="form-input" required>
+                                <small>নিবন্ধন অনুযায়ী সঠিক তারিখ দিন</small>
+                            </div>
+
+                            <!-- Ward Select -->
+                            <div class="form-group">
+                                <label for="ward">ওয়ার্ড/এলাকা নির্বাচন করুন</label>
+                                <div class="select-wrapper">
+                                    <select id="ward" class="form-input" required>
+                                        <option value="" disabled selected>লোড হচ্ছে...</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" id="reset-btn" class="btn btn-secondary">রিসেট</button>
+                            <button type="submit" id="search-btn" class="btn btn-primary">
+                                <span>অনুসন্ধান করুন</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results-section" class="results-section" style="display: none;">
+            <div class="container">
+                <div class="results-header">
+                    <h3>ফলাফল: <span id="result-count">0</span> টি ভোটার পাওয়া গেছে</h3>
+                </div>
+
+                <!-- Desktop Table View -->
+                <div class="table-responsive desktop-only">
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>ক্রমিক</th>
+                                <th>নাম</th>
+                                <th>পিতা/স্বামী</th>
+                                <th>ভোটের নম্বর</th>
+                                <th>কেন্দ্রের নাম</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-tbody">
+                            <!-- Rows injected here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Mobile Card View -->
+                <div class="mobile-cards mobile-only" id="mobile-results-container">
+                    <!-- Cards injected here -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>

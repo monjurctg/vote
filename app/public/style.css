@@ -1,0 +1,588 @@
+:root {
+    --primary-color: #008f51;
+    /* Dhaner Shish Green */
+    --primary-dark: #00683a;
+    --secondary-color: #fabc02;
+    /* Subtle Gold/Yellow accent */
+    --bg-color: #f1f5f9;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border-color: #cbd5e1;
+    --radius: 12px;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --font-bangla: 'Tiro Bangla', serif;
+    --font-sans: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    /* Mobile touch fix */
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Typography Overrides for Bengali */
+h1,
+h2,
+h3,
+.brand,
+.btn,
+label,
+option,
+.row-value {
+    font-family: var(--font-bangla), var(--font-sans);
+}
+
+/* Utilities */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.hidden {
+    display: none !important;
+    opacity: 0;
+}
+
+/* Desktop/Mobile Visiblity */
+.desktop-only {
+    display: block;
+}
+
+.mobile-only {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none;
+    }
+
+    .mobile-only {
+        display: block;
+    }
+}
+
+/* Navbar */
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.8rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.brand {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* Banner */
+.banner-container {
+    width: 100%;
+    margin-bottom: 0;
+    position: relative;
+    background: black;
+    /* Placeholder for loading image */
+}
+
+.banner-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* max-height removed to prevent cropping */
+    /* object-fit removed to show full image */
+    opacity: 0;
+    animation: fadeIn 0.8s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Hero Content */
+.hero {
+    margin-bottom: -40px;
+    /* Pull search card up */
+    padding-bottom: 60px;
+    background: linear-gradient(to bottom, #ffffff, var(--bg-color));
+}
+
+.hero-content {
+    margin-top: 1.5rem;
+}
+
+.hero-images {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.candidate-img,
+.marka-img {
+    height: 140px;
+    /* Smaller, cleaner */
+    width: auto;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.candidate-img:hover,
+.marka-img:hover {
+    transform: scale(1.05);
+}
+
+.manifesto-box {
+    background: #e0f2fe;
+    /* Light blue tint */
+    border: 1px solid #bae6fd;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #0369a1;
+    display: inline-block;
+    margin-top: 1rem;
+    max-width: 600px;
+}
+
+/* Search Card - The Star of the Show */
+.search-section {
+    position: relative;
+    z-index: 10;
+    padding-bottom: 3rem;
+}
+
+.search-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    padding: 2rem;
+    border-top: 6px solid var(--primary-color);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #f8fafc;
+    transition: all 0.2s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    background: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 143, 81, 0.1);
+}
+
+/* Buttons */
+.form-actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    /* Right align on desktop */
+    gap: 1rem;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.875rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 143, 81, 0.3);
+    width: auto;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 6px 10px rgba(0, 143, 81, 0.4);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: #f1f5f9;
+}
+
+/* Results */
+.results-header h3 {
+    text-align: center;
+    color: var(--primary-dark);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.results-table th {
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem;
+    border: none;
+}
+
+.results-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    background: white;
+}
+
+.results-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Mobile Card (Voter Slip Style) */
+.result-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.result-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: var(--primary-color);
+}
+
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 0.75rem;
+}
+
+.result-row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.row-label {
+    flex: 0 0 40%;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.row-value {
+    flex: 1;
+    text-align: right;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+    .container {
+        padding: 0 0.75rem;
+    }
+
+    .hero {
+        margin-bottom: -30px;
+        padding-bottom: 40px;
+    }
+
+    .search-card {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+        /* Reset on bottom */
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .candidate-img,
+    .marka-img {
+        height: 100px;
+        /* Fit on mobile */
+    }
+
+    .manifesto-box {
+        font-size: 0.9rem;
+    }
+}
+
+/* Loading Overlay */
+.loader-container {
+    position: fixed;
+    inset: 0;
+    background: white;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s;
+}
+
+/* --- MODAL & SLIP STYLES --- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    display: flex;
+    align-items: flex-start;
+    /* Changed from center to allow scrolling long content */
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    overflow-y: auto;
+    padding: 3rem 1rem 1rem 1rem;
+    /* Added top padding to push modal down */
+}
+
+.modal-content {
+    background: transparent;
+    width: 100%;
+    max-width: 600px;
+}
+
+.modal-actions {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px 8px 0 0;
+    /* Rounded top */
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    border-bottom: 1px solid #ddd;
+    /* Removed sticky positioning to fix overlap issues */
+}
+
+/* THE SLIP DESIGN (Matches Image) */
+.voter-slip-container {
+    background: white;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 2px solid #000;
+    font-family: var(--font-bangla), sans-serif;
+}
+
+/* 1. Header Image */
+.slip-header {
+    width: 100%;
+    background: white;
+    border-bottom: 2px solid #000;
+}
+
+.slip-full-banner {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 2. Manifesto Strip */
+.slip-manifesto {
+    padding: 0.5rem;
+    text-align: center;
+    font-weight: 700;
+    color: #000;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #000;
+    line-height: 1.3;
+}
+
+/* 3. Center Header (Green Bar) */
+.slip-center-header {
+    background-color: var(--primary-dark);
+    /* Deep Green */
+    color: white;
+    font-weight: 700;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #fff;
+}
+
+/* 4. Body (Gray Background) */
+.slip-body {
+    background-color: #d1dadd;
+    /* The specifc gray-blue tint from image */
+    padding: 1.5rem;
+    color: #000;
+    font-size: 1.1rem;
+}
+
+.detail-row {
+    margin-bottom: 0.5rem;
+    display: flex;
+}
+
+.detail-row span:first-child {
+    width: 130px;
+    /* Label width */
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.detail-row span:last-child {
+    font-weight: 500;
+}
+
+/* 5. Footer */
+.slip-footer {
+    background-color: #d1dadd;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #444;
+}
+
+.btn-danger {
+    background: #dc2626;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #b91c1c;
+}
+
+@media (max-width: 600px) {
+    .modal-actions {
+        flex-direction: column;
+    }
+}
+
+/* PRINT OPTIMIZATION (Robust Fix) */
+@media print {
+
+    /* Hide everything on the page by default */
+    body>* {
+        display: none !important;
+    }
+
+    /* Target the slip container directly - Move it to be visible */
+    /* We make the modal container visible, but static so it flows */
+    #slip-modal {
+        display: block !important;
+        position: static !important;
+        background: white !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Hide the overlay parts like actions and footer */
+    .modal-actions,
+    .modal-overlay,
+    /* If overlay is separate */
+    .navbar,
+    .search-section,
+    footer,
+    .loader-container {
+        display: none !important;
+    }
+
+    /* Ensure specific modal content is visible */
+    .modal-content,
+    .voter-slip-container {
+        display: block !important;
+        visibility: visible !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        border: 2px solid #000 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+    }
+
+    /* Force background colors */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .slip-center-header {
+        background-color: var(--primary-dark) !important;
+        color: white !important;
+    }
+
+    .slip-body {
+        background-color: #d1dadd !important;
+    }
+}
