@@ -59,8 +59,8 @@ const STATIC_DATA = {
         "Name": "আলহাজ্ব জান্নাতুল ইসলাম  | চট্টগ্রাম-১০",
         "Title": "<span style=\"font-weight: bold;\">আলহাজ্ব জান্নাতুল ইসলাম </span> এর সালাম নিন, হাতপাখা মার্কায় ভোট দিন<br>তারুন্যের প্রথম ভোট, হাতপাখা মার্কার পক্ষে হোক",
         "Manifesto": "<span style=\"font-weight: bold;\">আলহাজ্ব জান্নাতুল ইসলাম </span> এর সালাম নিন, হাতপাখা মার্কায় ভোট দিন<br>তারুন্যের প্রথম ভোট, হাতপাখা মার্কার পক্ষে হোক",
-        "Marka_Image_Path": "https://objectstorage.ap-singapore-1.oraclecloud.com/p/XVuS8J3TEP1vxThjx8xxZgcIvNYqbnpo22U40HKfS6_Aa5G6nrVjXJx6nycTClNw/n/axssgl0vbvet/b/bucket-parsing-project/o/Marka_Sayd_Al_Noman_Chittagong_10_22-01_C3C3YT4YI4.png",
-        "Person_Image_Path": "https://objectstorage.ap-singapore-1.oraclecloud.com/p/MLNr_i5V_905P0DRArzsBGoJtrRdqIJxqL0O9s7XoNAU5I34PImmU4cSa7FLwmWS/n/axssgl0vbvet/b/bucket-parsing-project/o/Candidate_Sayd_Al_Noman_Chittagong_10_22-01_FVOJTLN901.png",
+        "Marka_Image_Path": "hatPakha.jpg",
+        "Person_Image_Path": "jannat.jpg",
         "Parsing_Client_File_Base": "https://objectstorage.ap-singapore-1.oraclecloud.com/p/DWECC7cRflYy3wE48n7MIEjVIAUkUpfv82Igs9ptvyxYPIpLCm5duEl4dYMbqSau/n/axssgl0vbvet/b/bucket-parsing-project/o/",
         "Parsing_Client_File": [
             { "Unique_Tag": "[Mobile_Poster]", "URL": "ParsingClientFile_Mobile_Poster_24-01_XLWEKBTMEK.jpeg" }
