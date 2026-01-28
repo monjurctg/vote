@@ -190,6 +190,14 @@ option,
     gap: 1.5rem;
 }
 
+@media (min-width: 992px) {
+    .form-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        /* Slightly smaller gap to ensure fit */
+    }
+}
+
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
@@ -427,8 +435,80 @@ option,
     display: flex;
     justify-content: center;
     gap: 1rem;
-    border-bottom: 1px solid #ddd;
-    /* Removed sticky positioning to fix overlap issues */
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.modal-actions .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.modal-actions .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s;
+}
+
+.modal-actions .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.modal-actions .btn:hover::before {
+    opacity: 1;
+}
+
+/* 1. Print - Reliable/Success (Emerald/Teal) */
+#print-btn {
+    background: #059669;
+    /* Emerald 600 */
+    color: white;
+    box-shadow: 0 4px 6px rgba(5, 150, 105, 0.2);
+}
+
+/* 2. Download - Tech/Info (Indigo/Violet) */
+#download-btn {
+    background: #4f46e5;
+    /* Indigo 600 */
+    color: white;
+    box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+}
+
+/* 3. Close - Soft Warning */
+#close-btn,
+#close-modal {
+    background: #fff1f2;
+    /* Rose 50 */
+    color: #e11d48;
+    /* Rose 600 */
+    border: 1px solid #fecdd3;
+}
+
+#close-btn:hover,
+#close-modal:hover {
+    background: #ffe4e6;
+    color: #be123c;
+    border-color: #fda4af;
+    box-shadow: none;
+    transform: translateY(-1px);
 }
 
 /* THE SLIP DESIGN (Matches Image) */

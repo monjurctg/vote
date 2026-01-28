@@ -108,7 +108,7 @@
                         <div class="form-grid">
                             <!-- Name Input -->
                             <div class="form-group">
-                                <label for="name">ভোটার নাম (অন্যচ্ছিক)</label>
+                                <label for="name">ভোটার নাম (ঐচ্ছিক)</label>
                                 <input type="text" id="name" placeholder="নামের প্রথম অংশ (বাংলায়)" class="form-input">
                             </div>
 
@@ -125,6 +125,16 @@
                                 <div class="select-wrapper">
                                     <select id="ward" class="form-input" required>
                                         <option value="" disabled selected>লোড হচ্ছে...</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Area Select (Added Back) -->
+                            <div class="form-group">
+                                <label for="area">এলাকা নির্বাচন করুন (ঐচ্ছিক)</label>
+                                <div class="select-wrapper">
+                                    <select id="area" class="form-input">
+                                        <option value="" selected>সকল এলাকা</option>
                                     </select>
                                 </div>
                             </div>
@@ -156,7 +166,7 @@
                                 <th>ক্রমিক</th>
                                 <th>নাম</th>
                                 <th>পিতা/স্বামী</th>
-                                <th>ভোটের নম্বর</th>
+                                <th>ভোটার নম্বর</th>
                                 <th>কেন্দ্রের নাম</th>
                             </tr>
                         </thead>

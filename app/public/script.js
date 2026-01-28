@@ -8,6 +8,7 @@ const candidateImg = document.getElementById('candidate-img');
 const markaImg = document.getElementById('marka-img');
 const manifesto = document.getElementById('manifesto');
 const wardSelect = document.getElementById('ward');
+const areaSelect = document.getElementById('area');
 const searchForm = document.getElementById('search-form');
 const resultsSection = document.getElementById('results-section');
 const resultsTbody = document.getElementById('results-tbody');
@@ -16,6 +17,7 @@ const resultCount = document.getElementById('result-count');
 
 // State
 let wardList = [];
+let currentAreaList = [];
 
 // Static Data (Hardcoded for performance as requested)
 const STATIC_DATA = {
@@ -150,6 +152,25 @@ function populateWards(wards) {
     });
 }
 
+// Ward Change Listener to Populate Areas
+wardSelect.addEventListener('change', (e) => {
+    const selectedWardName = e.target.value;
+    areaSelect.innerHTML = '<option value="" selected>সকল এলাকা</option>';
+
+    // Find the Selected Ward Object
+    const wardObj = wardList.find(w => w.WardName === selectedWardName);
+
+    if (wardObj && wardObj.Areas && Array.isArray(wardObj.Areas)) {
+        wardObj.Areas.forEach(area => {
+            const option = document.createElement('option');
+            // Assuming Area is a string based on Static Data
+            option.value = area;
+            option.textContent = area;
+            areaSelect.appendChild(option);
+        });
+    }
+});
+
 // Smart DOB Input Handler
 const dobInput = document.getElementById('dob');
 dobInput.addEventListener('input', (e) => {
@@ -191,6 +212,7 @@ searchForm.addEventListener('submit', async (e) => {
     const name = document.getElementById('name').value;
     const dob = document.getElementById('dob').value;
     const ward = wardSelect.value;
+    const area = areaSelect.value;
 
     if (!dob || !ward) {
         alert("দয়া করে জন্ম তারিখ এবং ওয়ার্ড নির্বাচন করুন");
@@ -202,8 +224,9 @@ searchForm.addEventListener('submit', async (e) => {
     const payload = {
         Name: name,
         DOB: dob,
-        Ward: ward,
-        IsArea: false // Based on previous analysis
+        // If Area is selected, passing Area Name as "Ward" property as per user request
+        Ward: area ? area : ward,
+        IsArea: !!area
     };
 
     try {
@@ -215,76 +238,16 @@ searchForm.addEventListener('submit', async (e) => {
 
         const responseData = await res.json();
 
-        renderResults(responseData);
+        renderResults(responseData, ward);
 
     } catch (error) {
         console.error("Search Error:", error);
-        alert("অনুসন্ধান করতে সমস্যা হয়েছে।");
+        alert("অনুসন্ধান সমস্যা: " + error.message);
     } finally {
         loader.classList.add('hidden');
     }
 });
 
-function renderResults(responseData) {
-    // Structure: { Data: { data: [Array of voters], recordsFiltered: N, ... } }
-    const results = responseData.Data?.data || [];
-    const count = responseData.Data?.recordsFiltered || 0;
-
-    resultCount.textContent = count;
-    resultsTbody.innerHTML = '';
-    mobileResultsContainer.innerHTML = '';
-
-    if (results.length === 0) {
-        resultsSection.style.display = 'block';
-        resultsTbody.innerHTML = '<tr><td colspan="5" class="text-center">কোনো তথ্য পাওয়া যায়নি</td></tr>';
-        return;
-    }
-
-    results.forEach(voter => {
-        // Desktop Row
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${voter.Serial || '-'}</td>
-            <td>${voter.Name}</td>
-            <td>${voter.Husband_Father}</td>
-            <td>${voter.Voter_No}</td>
-            <td>${voter.CenterName}</td>
-        `;
-        resultsTbody.appendChild(tr);
-
-        // Mobile Card
-        const card = document.createElement('div');
-        card.className = 'result-card';
-        card.innerHTML = `
-            <div class="result-row">
-                <span class="row-label">ক্রমিক</span>
-                <span class="row-value">${voter.Serial || '-'}</span>
-            </div>
-            <div class="result-row">
-                <span class="row-label">নাম</span>
-                <span class="row-value">${voter.Name}</span>
-            </div>
-            <div class="result-row">
-                <span class="row-label">পিতা/স্বামী</span>
-                <span class="row-value">${voter.Husband_Father}</span>
-            </div>
-            <div class="result-row">
-                <span class="row-label">ভোটের নম্বর</span>
-                <span class="row-value">${voter.Voter_No}</span>
-            </div>
-            <div class="result-row">
-                <span class="row-label">কেন্দ্র</span>
-                <span class="row-value" style="font-size: 0.9rem;">${voter.CenterName}</span>
-            </div>
-        `;
-        mobileResultsContainer.appendChild(card);
-    });
-
-    resultsSection.style.display = 'block';
-
-    // Smooth scroll to results
-    resultsSection.scrollIntoView({ behavior: 'smooth' });
-}
 
 // ----------------------------------------------------
 // SLIP & MODAL LOGIC
@@ -332,7 +295,7 @@ window.openSlip = function (voterStr) {
     document.getElementById('slip-father').textContent = voter.Husband_Father || '-';
     document.getElementById('slip-mother').textContent = voter.Mother || '-';
     document.getElementById('slip-area').textContent = voter.AreaName || '-';
-    document.getElementById('slip-ward').textContent = voter.Ward || '12(Part)'; // Hardcoded logic or from object
+    document.getElementById('slip-ward').textContent = voter.Ward || '-';
 
     // 3. Show Modal
     modal.classList.remove('hidden');
@@ -364,9 +327,12 @@ printBtn.addEventListener('click', () => {
 });
 
 // Updated Render with Slip Button
-function renderResults(responseData) {
-    const results = responseData.Data?.data || [];
-    const count = responseData.Data?.recordsFiltered || 0;
+function renderResults(responseData, searchedWard) {
+    console.log("renderResults active function called");
+    console.log("Full Response:", responseData);
+
+    const results = responseData.Data?.data || responseData.data || responseData.Data || [];
+    const count = responseData.Data?.recordsFiltered || results.length || 0;
 
     resultCount.textContent = count;
     resultsTbody.innerHTML = '';
@@ -379,6 +345,11 @@ function renderResults(responseData) {
     }
 
     results.forEach(voter => {
+        // Ensure Ward is present for the slip since it might not be in the voter object from API
+        if (!voter.Ward && searchedWard) {
+            voter.Ward = searchedWard;
+        }
+
         // Safe stringify for passing to onclick
         const voterStr = encodeURIComponent(JSON.stringify(voter));
         const btnHtml = `<button class="btn btn-sm btn-primary" onclick="openSlip('${voterStr}')">স্লিপ</button>`;
@@ -412,7 +383,7 @@ function renderResults(responseData) {
                 <span class="row-value">${voter.Husband_Father}</span>
             </div>
             <div class="result-row">
-                <span class="row-label">ভোটের নম্বর</span>
+                <span class="row-label">ভোটার নম্বর</span>
                 <span class="row-value">${voter.Voter_No}</span>
             </div>
             <div class="result-row">
