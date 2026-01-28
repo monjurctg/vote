@@ -71,6 +71,17 @@ async function safeSaveSearch(reqPayload, resData) {
         const vDOB = reqPayload.DOB || '';
         const vWard = reqPayload.Ward || '';
 
+        // Check if this search already exists
+        const [existing] = await promisePool.query(
+            "SELECT id FROM search_logs WHERE voter_name = ? AND dob = ? AND ward = ? LIMIT 1",
+            [vName, vDOB, vWard]
+        );
+
+        if (existing.length > 0) {
+            console.log("Skipping duplicate log save");
+            return;
+        }
+
         // We log the request AND the response
         await promisePool.query(
             "INSERT INTO search_logs (voter_name, dob, ward, request_payload, full_json) VALUES (?, ?, ?, ?, ?)",
