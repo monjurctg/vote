@@ -58,9 +58,9 @@ const STATIC_DATA = {
     "IsArea": false,
     "Client": {
         "Id": 328,
-        "Name": "আলহাজ্ব জান্নাতুল ইসলাম  | চট্টগ্রাম-১০",
-        "Title": "<span style=\"font-weight: bold;\">আলহাজ্ব জান্নাতুল ইসলাম </span> এর সালাম নিন, হাতপাখা মার্কায় ভোট দিন<br>তারুন্যের প্রথম ভোট, হাতপাখা মার্কার পক্ষে হোক",
-        "Manifesto": "<span style=\"font-weight: bold;\">আলহাজ্ব জান্নাতুল ইসলাম </span> এর সালাম নিন, হাতপাখা মার্কায় ভোট দিন<br>তারুন্যের প্রথম ভোট, হাতপাখা মার্কার পক্ষে হোক",
+        "Name": "মোহাম্মদ জান্নাতুল ইসলাম | চট্টগ্রাম-১০",
+        "Title": "<span style=\"font-weight: bold;\">মোহাম্মদ জান্নাতুল ইসলাম ভাইয়ের </span> এর সালাম নিন, হাতপাখা মার্কায় ভোট দিন<br>তারুন্যের প্রথম ভোট ইসলাম, দেশ ও মানবতার পক্ষ্যে হোক",
+        "Manifesto": "<span style=\"font-weight: bold;\">মোহাম্মদ জান্নাতুল ইসলাম ভাইয়ের </span> এর সালাম নিন, হাতপাখা মার্কায় ভোট দিন<br>তারুন্যের প্রথম ভোট ইসলাম, দেশ ও মানবতার পক্ষ্যে হোক",
         "Marka_Image_Path": "hatPakha.jpg",
         "Person_Image_Path": "jannat.jpg",
         "Parsing_Client_File_Base": "https://objectstorage.ap-singapore-1.oraclecloud.com/p/DWECC7cRflYy3wE48n7MIEjVIAUkUpfv82Igs9ptvyxYPIpLCm5duEl4dYMbqSau/n/axssgl0vbvet/b/bucket-parsing-project/o/",

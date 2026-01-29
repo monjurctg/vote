@@ -1,9 +1,10 @@
 :root {
-    --primary-color: #008f51;
-    /* Dhaner Shish Green */
-    --primary-dark: #00683a;
-    --secondary-color: #fabc02;
-    /* Subtle Gold/Yellow accent */
+    --primary-color: #dc2626;
+    /* Red 600 */
+    --primary-dark: #b91c1c;
+    /* Red 700 */
+    --secondary-color: #ffffff;
+    /* White */
     --bg-color: #f1f5f9;
     --card-bg: #ffffff;
     --text-main: #0f172a;
@@ -103,16 +104,24 @@ option,
     width: 100%;
     margin-bottom: 0;
     position: relative;
-    background: black;
+    background: white;
+    /* Changed from black to blend with theme */
     /* Placeholder for loading image */
 }
 
 .banner-img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    /* Fill container */
+    max-height: 450px;
+    /* Increased from 300px per user request */
+    object-fit: contain;
+    /* Show FULL image, do not crop */
+    object-position: center;
+    /* Ensure it stays in the middle */
     display: block;
-    /* max-height removed to prevent cropping */
-    /* object-fit removed to show full image */
+    margin: 0 auto;
+    /* Center naturally */
     opacity: 0;
     animation: fadeIn 0.8s forwards;
 }
